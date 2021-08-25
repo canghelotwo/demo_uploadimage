@@ -6,7 +6,8 @@ use App\deletephoto;
 use Illuminate\Http\Request;
 use DB;
 use Session;
- use File; 
+use File; 
+use App\Models\Image;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
 
@@ -19,8 +20,8 @@ class UploadController extends Controller
      */
     public function index()
     {
-    	$image = DB::table('avatar')->get();
-        return view('page.showfile')->with('image',$image);
+        $images = DB::table('images')->get(); 
+        return view('page.showfile')->with('images',$images);
     }
 
     public function upload()
@@ -28,26 +29,29 @@ class UploadController extends Controller
         return view('page.uploadfile');
     }
 
-    public function save(Request $request)
-    {
-    	$data = array();
-        $data['image'] = $request->image;
+    public function save(Request $request){
+       
+        
+        $request->validate([
+          'file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
 
-        $get_image = $request->file('image');
-      
-        if($get_image){
+        $image = new Image;
+
+        $get_image = $request->file('file');
+        if ($get_image) {
             $get_name_image = $get_image->getClientOriginalName();
             
             $name_image = current(explode('.',$get_name_image));
             $new_image =  $name_image.rand(0,99).'.'.$get_image->getClientOriginalExtension();
             $get_image->move('uploads',$new_image);
-            $data['image'] = 'uploads/'.$new_image;
-            DB::table('avatar')->insert($data);
-            return Redirect::to('home');
+            // $path = $request->file('file')->storeAs('uploads', $imageName, 'public');
         }
-        else{    
-            return Redirect::to('home'); 
-            
-        }
+
+        $image->name = $new_image;
+        $image->path = 'uploads/'.$new_image;
+        $image->save();
+
+        return response()->json('Image uploaded successfully');
     }
 }

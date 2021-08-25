@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\UploadController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,8 +14,12 @@ use Illuminate\Support\Facades\Route;
 */
 //Route::get('/', 'HomeController@index')->name('index');
 
-Route::get('/home', 'UploadController@index');
+Route::get('home', [ UploadController::class, 'index' ]);
+Route::get('upload', [ UploadController::class, 'upload' ]);
+Route::post('save', [ UploadController::class, 'save' ])->name('save');
 
-Route::get('/upload', 'UploadController@upload')->name('upload');
+// Route::get('home', 'UploadController@index');
 
-Route::post('/save', 'UploadController@save')->name('save');
+// Route::get('upload', 'UploadController@upload')->name('upload');
+
+// Route::post('save', 'UploadController@save')->name('save');

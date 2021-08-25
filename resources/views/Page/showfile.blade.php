@@ -13,14 +13,16 @@
 	        <thead>
 	          <tr>
 	          	<th>ID</th>
-	            <th>Image</th>
+	          	<th>Name</th>
+	            <th>Path</th>
 	          </tr>
 	        </thead>
 	        <tbody>
-	       	@foreach($image as  $img)
+	       	@foreach($images as  $img)
 	          <tr>
 	          	<td>{{$img->id}}</td>
-	            <td><img src="{{asset($img->image)}}" height="100" width="100"></td>
+	          	<td>{{$img->name}}</td>
+	            <td><img src="{{asset($img->path)}}" height="100" width="100"></td>
 	          </tr>
 	         @endforeach
 	        </tbody>

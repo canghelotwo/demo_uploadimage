@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th8 25, 2021 lúc 01:56 PM
+-- Thời gian đã tạo: Th8 25, 2021 lúc 03:59 PM
 -- Phiên bản máy phục vụ: 10.4.20-MariaDB
 -- Phiên bản PHP: 7.4.21
 
@@ -24,30 +24,34 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `avatar`
+-- Cấu trúc bảng cho bảng `images`
 --
 
-CREATE TABLE `avatar` (
-  `id` int(11) NOT NULL,
-  `image` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL
+CREATE TABLE `images` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `path` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `avatar`
+-- Đang đổ dữ liệu cho bảng `images`
 --
 
-INSERT INTO `avatar` (`id`, `image`) VALUES
-(1, 'uploads/ducati.png'),
-(2, 'uploads/Screen User59.png');
+INSERT INTO `images` (`id`, `name`, `path`, `created_at`, `updated_at`) VALUES
+(1, 'abc', 'uploads/ducati.png', NULL, NULL),
+(5, 'Screen User12.png', 'uploads/Screen User12.png', '2021-08-25 06:57:28', '2021-08-25 06:57:28'),
+(6, 'Screen User30.png', 'uploads/Screen User30.png', '2021-08-25 06:58:23', '2021-08-25 06:58:23');
 
 --
 -- Chỉ mục cho các bảng đã đổ
 --
 
 --
--- Chỉ mục cho bảng `avatar`
+-- Chỉ mục cho bảng `images`
 --
-ALTER TABLE `avatar`
+ALTER TABLE `images`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -55,10 +59,10 @@ ALTER TABLE `avatar`
 --
 
 --
--- AUTO_INCREMENT cho bảng `avatar`
+-- AUTO_INCREMENT cho bảng `images`
 --
-ALTER TABLE `avatar`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+ALTER TABLE `images`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
